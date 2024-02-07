@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function ProfileCard() {
+  const [status, setStatus] = useState("Please update your status.");
+  const [update, setUpdate] = useState(false);
+
   return (
     <div className="overflow-hidden rounded-lg bg-gray-100 shadow">
       <div
@@ -23,15 +26,25 @@ export default function ProfileCard() {
       <div className="px-4">
         <p className="text-xl font-bold mt-10 text-center">Username</p>
         <p className="text-sm text-center">email@email.com</p>
-        <div className="flex justify-center mt-4 border rounded-md bg-white mx-4 p-12">
-          <div>
-            Your status goes here, its limited to 120 characters. This is a test
-            of what it would look like
+        {update ? (
+          <>
+            <textarea
+              className="w-96 mt-4 border rounded-md bg-white mx-4 "
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            />
+          </>
+        ) : (
+          <div className="flex justify-center mt-4 border rounded-md bg-white mx-4 p-12">
+            <div>{status}</div>
           </div>
-        </div>
+        )}
+
         <div className="flex px-4">
-          <button className="ml-auto text-blue-500 hover:blue-700">
-            Update Status
+          <button className="ml-auto text-blue-500 hover:blue-700"
+          onClick={() => setUpdate(!update)}
+          >
+           {update ? "Save" : "Update"} Status
           </button>
         </div>
         <div className="text-center pb-12 w-full">
